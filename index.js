@@ -10,7 +10,6 @@ const db = mongojs('mongodb+srv://web-eng:web-eng@ibu-web-programming-b7utm.gcp.
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-
 app.post('/stores', function(req, res){
     db.stores.insert(req.body, function(err, doc){
         res.json(doc);
