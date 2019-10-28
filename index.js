@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 app.use(express.static('public')) // from the 'public' directory
 
 app.get('/items', (req, res) => {
-    db.items.find({ }, (error, docs) => {
+    let limit = Number(req.query.limit) || 5; // the number of results per page; defaults to 5
+    let skip = Number(req.query.skip) || 0; // how many results to 'skip' - which page you are on; defaults to 0 (first page)
+    db.items.find({ }).skip(skip).limit(limit, (error, docs) => {
         if (error) {
             throw error;
         }
@@ -77,6 +79,18 @@ app.delete('/items/:id', (req, res) => {
     });
 });
 
+app.get('/items/:id/stores', (req, res) => {
+    let id = req.params.id;
+    db.store_items.aggregate([
+        { $match: { item_id: mongojs.ObjectId(id) } },
+        { $lookup: { from: 'stores', localField: 'store_id', foreignField: '_id', as: 'store' }  },
+        { $unwind: '$store' }, // unwind to get a single result from the $lookup array
+        { $project: { price: 1, store: 1 } } // project only the required fields
+    ], (error, docs) => {
+        res.json(docs);
+    });
+});
+
 app.get('/items/:id/cheapest', (req, res) => {
     let id = req.params.id;
     db.store_items.aggregate([ 
@@ -85,9 +99,9 @@ app.get('/items/:id/cheapest', (req, res) => {
         { $limit: 1 },
         { $lookup: { from: 'stores', localField: 'store_id', foreignField: '_id', as: 'store' } },
         { $lookup: { from: 'items', localField: 'item_id', foreignField: '_id', as: 'item' } },
-        { $unwind: '$store' }, // unwind to get a single result from the $lookup array
+        { $unwind: '$store' },
         { $unwind: '$item' },
-        { $project: { item_name: '$item.name', price: 1, store_name: '$store.name', store_address: '$store.address' } } // project only the required fields
+        { $project: { item_name: '$item.name', price: 1, store_name: '$store.name', store_address: '$store.address' } } 
     ], (error, docs) => {
         res.json(docs);
     });
