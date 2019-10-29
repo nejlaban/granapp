@@ -79,15 +79,31 @@ app.delete('/items/:id', (req, res) => {
     });
 });
 
+// app.get('/items/:id/stores', (req, res) => {
+//     let id = req.params.id;
+//     db.store_items.aggregate([
+//         { $match: { item_id: mongojs.ObjectId(id) } },
+//         { $lookup: { from: 'stores', localField: 'store_id', foreignField: '_id', as: 'store' }  },
+//         { $unwind: '$store' }, // unwind to get a single result from the $lookup array
+//         { $project: { price: 1, store: 1 } } // project only the required fields
+//     ], (error, docs) => {
+//         res.json(docs);
+//     });
+// });
+
 app.get('/items/:id/stores', (req, res) => {
     let id = req.params.id;
-    db.store_items.aggregate([
-        { $match: { item_id: mongojs.ObjectId(id) } },
-        { $lookup: { from: 'stores', localField: 'store_id', foreignField: '_id', as: 'store' }  },
-        { $unwind: '$store' }, // unwind to get a single result from the $lookup array
-        { $project: { price: 1, store: 1 } } // project only the required fields
-    ], (error, docs) => {
-        res.json(docs);
+    db.store_items.find({ item_id: mongojs.ObjectId(id) }, (error, docs) => {
+        for (let i = 0; i < docs.length; i++) {
+            db.stores.findOne({ _id: mongojs.ObjectId(docs[i].store_id) }, (error, docs2) => {
+                docs[i].store = docs2;
+                console.log(docs);
+                /* Wait until the last document is processed to output */
+                if (i == docs.length - 1) {
+                    res.json(docs);
+                }
+            });
+        }
     });
 });
 
