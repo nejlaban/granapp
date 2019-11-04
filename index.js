@@ -12,58 +12,60 @@ const db = mongojs('mongodb+srv://web-eng:web-eng@ibu-web-programming-b7utm.gcp.
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
+var admin_router = express.Router()
+require('./admin.js')(admin_router, db);
+
 app.use(function (req, res, next) {
     console.log('Time:', Date.now())
     next()
 });
 
-app.post('/stores', function(req, res){
-    db.stores.insert(req.body, function(err, doc){
-        res.json(doc);
-    });
+app.use('/admin', admin_router);
+
+
+const {google} = require('googleapis');
+const oauth2Client = new google.auth.OAuth2(
+//meci ovde
+  );
+
+app.get('/login.html', function(req, res){
+      var code = req.query.code;
+
+      if (code){
+        oauth2Client.getToken(code).then(function(result){
+            oauth2Client.setCredentials({access_token: result.tokens.access_token});
+            var oauth2 = google.oauth2({
+                auth: oauth2Client,
+                version: 'v2'
+            });
+            
+            oauth2.userinfo.get(
+            function(err, res) {
+                if (err) {
+                console.log(err);
+                } else {
+                console.log(res);
+                }
+            });
+            console.log(result);
+            res.send(result);
+        });
+      }else{
+        const scopes = [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ];
+        
+        const url = oauth2Client.generateAuthUrl({
+            access_type: 'online',
+            scope: scopes
+        });
+        res.redirect(url);
+      }
+
+      
 });
 
-app.get('/stores', function(req, res){
-    var offset = Number(req.query.offset) || 0;
-    var limit = Number(req.query.limit) || 3;
 
-    db.stores.find({}).skip(offset).limit(limit, function (err, docs) {
-        res.json(token);
-    })    
-});
-
-app.get('/stores/:id', function(req, res){
-    var id = req.params.id;
-    db.stores.findOne({_id: mongojs.ObjectId(id)},function (err, docs) {
-        res.json(docs);
-    })
-});
-
-app.get('/stores/:id', function(req, res){
-    var id = req.params.id;
-    db.stores.findOne({_id: mongojs.ObjectId(id)},function (err, docs) {
-        res.json(docs);
-    })
-});
-
-app.put('/stores/:id', function(req, res){
-    var id = req.params.id;
-    var object = req.body
-
-    db.stores.findAndModify({
-        query: { _id: mongojs.ObjectId(id) },
-        update: { $set: object },
-        new: true
-    }, function (err, doc, lastErrorObject) {
-       res.json(doc);
-    });
-});
-
-app.delete('/stores/:id', function(req, res){
-    var id = req.params.id;
-    db.stores.remove({ _id: mongojs.ObjectId(id) }, [true], function(err, docs){
-        res.json(docs);
-    });
-});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`)) 
