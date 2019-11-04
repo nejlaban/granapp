@@ -7,7 +7,7 @@ module.exports = (router, db, mongojs, jwt) => {
         /* Check for proper JWT */
         let authorization = req.get('Authorization');
         if (authorization) {
-            jwt.verify(authorization, config.JWT_SECRET, (error, decoded) => {
+            jwt.verify(authorization, process.env.JWT_SECRET || config.JWT_SECRET, (error, decoded) => {
                 if (error) {
                     res.status(401).send({ message: 'Unauthorized access: ' + error.message });
                 } else {

@@ -9,7 +9,7 @@ const config = require('./config');
 const app = express();
 const port = process.env.PORT || 3000;
 
-const db = mongojs(config.MONGODB_URL);
+const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -27,9 +27,9 @@ app.use('/admin', admin_router);
 
 const { google } = require('googleapis');
 const oauth2Client = new google.auth.OAuth2(
-    config.CLIENT_ID,
-    config.CLIENT_SECRET,
-    config.REDIRECT_URL
+    process.env.CLIENT_ID || config.CLIENT_ID,
+    process.env.CLIENT_SECRET || config.CLIENT_SECRET,
+    process.env.REDIRECT_URL || config.REDIRECT_URL
 );
 
 app.get('/login', (req, res) => {
@@ -64,7 +64,7 @@ app.get('/login', (req, res) => {
                         ...data,
                         id: doc._id,
                         type: doc.type
-                    }, config.JWT_SECRET);
+                    }, process.env.JWT_SECRET || config.JWT_SECRET);
                     /* Output the JWT */
                     res.json({ 'jwt' : jwtToken });
                 });
