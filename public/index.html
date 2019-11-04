@@ -1,5 +1,30 @@
 <html>
-    <body>
-        <h1>GRANAPP</h1>
-    </body>
+<head>
+  <meta name="google-signin-client_id" content="746913884482-nnbfaoqk50kvtgqjov11grgclbnsikuf.apps.googleusercontent.com">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <h1>GranApp</h1>
+    <div id="my-signin2"></div>
+    <script>
+        function onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        }
+        function onFailure(error) {
+            console.log(error);
+        }
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        }
+    </script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
 </html>
