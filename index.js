@@ -4,7 +4,10 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 /* Configuration import */
-const config = require('./config');
+let config;
+if (!process.env.HEROKU) {
+    config = require('./config');
+}
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,7 +25,7 @@ app.use((req, res, next) => {
 
 /* Express Routers */
 let admin_router = express.Router()
-require('./routes/admin.js')(admin_router, db, mongojs, jwt);
+require('./routes/admin.js')(admin_router, db, mongojs, jwt, config);
 app.use('/admin', admin_router);
 
 const { google } = require('googleapis');

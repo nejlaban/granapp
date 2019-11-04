@@ -1,5 +1,4 @@
-module.exports = (router, db, mongojs, jwt) => {
-    let config = require('./../config');
+module.exports = (router, db, mongojs, jwt, config) => {
 
     router.use((req, res, next) => {
         console.log(`Admin route accessed by: ${req.ip}` ); // log visits
