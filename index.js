@@ -2,6 +2,8 @@ const express = require('express');
 const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 
+var jwt = require('jsonwebtoken');
+
 const app = express();
 const port = process.env.PORT || 3000
 
@@ -19,8 +21,9 @@ app.post('/stores', function(req, res){
 app.get('/stores', function(req, res){
     var offset = Number(req.query.offset) || 0;
     var limit = Number(req.query.limit) || 3;
+
     db.stores.find({}).skip(offset).limit(limit, function (err, docs) {
-        res.json(docs);
+        res.json(token);
     })    
 });
 
