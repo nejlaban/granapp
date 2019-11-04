@@ -7,10 +7,15 @@ var jwt = require('jsonwebtoken');
 const app = express();
 const port = process.env.PORT || 3000
 
-const db = mongojs('mongodb+srv://web-eng:web-eng@ibu-web-programming-b7utm.gcp.mongodb.net/granapp?retryWrites=true&w=majority', []);
+const db = mongojs('mongodb+srv://web-eng:web-eng@ibu-web-programming-b7utm.gcp.mongodb.net/granapp?retryWrites=true&w=majority', []); // heroku param config file
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
+
+app.use(function (req, res, next) {
+    console.log('Time:', Date.now())
+    next()
+});
 
 app.post('/stores', function(req, res){
     db.stores.insert(req.body, function(err, doc){
