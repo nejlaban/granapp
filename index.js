@@ -28,6 +28,10 @@ let admin_router = express.Router()
 require('./routes/admin.js')(admin_router, db, mongojs, jwt, config);
 app.use('/admin', admin_router);
 
+let public_router = express.Router()
+require('./routes/public.js')(public_router);
+app.use('/public', public_router);
+
 const { google } = require('googleapis');
 const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID || config.CLIENT_ID,
@@ -51,8 +55,6 @@ app.get('/login', (req, res) => {
                     throw err;
                 }
                 let data = response.data;
-                // console.log(data);
-                // res.send(data);
 
                 db.users.findAndModify({ 
                     query: { email: data.email },
@@ -65,6 +67,7 @@ app.get('/login', (req, res) => {
                     }
                     let jwtToken = jwt.sign({
                         ...data,
+                        exp: (Math.floor(Date.now() / 1000) + 3600), // token which lasts for an hour
                         id: doc._id,
                         type: doc.type
                     }, process.env.JWT_SECRET || config.JWT_SECRET);
@@ -72,7 +75,6 @@ app.get('/login', (req, res) => {
                     res.json({ 'jwt' : jwtToken });
                 });
             });
-            // console.log(result);
         });
       /* If coming to the login URL for the first time */
       } else {
