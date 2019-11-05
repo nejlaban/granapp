@@ -24,11 +24,11 @@ app.use((req, res, next) => {
 });
 
 /* Express Routers */
-let admin_router = express.Router()
+let admin_router = express.Router();
 require('./routes/admin.js')(admin_router, db, mongojs, jwt, config);
 app.use('/admin', admin_router);
 
-let public_router = express.Router()
+let public_router = express.Router();
 require('./routes/public.js')(public_router);
 app.use('/public', public_router);
 
