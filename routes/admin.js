@@ -14,7 +14,7 @@ module.exports = (router, db, mongojs, jwt, config) => {
                     if (userType === 'admin') {
                         next();
                     } else {
-                        res.status(401).send({ message: 'Unauthorized access: ' + error.message });
+                        res.status(401).send({ message: 'Unauthorized access: improper privileges'});
                     }
                 }
             });
