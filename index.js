@@ -3,6 +3,11 @@ const mongojs = require('mongojs');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+
+
 /* Configuration import */
 let config;
 if (!process.env.HEROKU) {
@@ -22,6 +27,40 @@ app.use((req, res, next) => {
     console.log('Server time: ', Date.now());
     next();
 });
+
+
+/** Swagger setup */
+
+const swaggerDefinition = {
+  info: {
+    title: 'GranApp Swagger API Documentation',
+    version: '1.0.0',
+  },
+  host: 'localhost:3003',
+  basePath: '/',
+  securityDefinitions: {
+    bearerAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      scheme: 'bearer',
+      in: 'header',
+    },
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  apis: ['./routes/*.js'],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+
+app.get('/swagger.json',function(req, res){
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /* Express Routers */
 let admin_router = express.Router();
