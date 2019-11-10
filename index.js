@@ -36,7 +36,7 @@ const swaggerDefinition = {
     title: 'GranApp Swagger API Documentation',
     version: '1.0.0',
   },
-  host: 'localhost:3003',
+  host: config.SWAGGER_HOST,
   basePath: '/',
   securityDefinitions: {
     bearerAuth: {
@@ -50,7 +50,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.js'],
+  apis: ['./index.js','./routes/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
@@ -78,6 +78,22 @@ const oauth2Client = new google.auth.OAuth2(
     process.env.REDIRECT_URL || config.REDIRECT_URL
 );
 
+/**
+  * @swagger
+  * /login:
+  *   get:
+  *     tags:
+  *       - Login
+  *     name: login
+  *     summary: Use Google Open ID to login to system. If account doesn't exist it will be created based on login info retrieved from Google
+  *     consumes:
+  *       - application/json
+  *     responses:
+  *       200:
+  *         description: Successfull Login
+  *       500:
+  *         description: Something is wrong with service please contact system administrator
+  */
 app.get('/login', (req, res) => {
       let code = req.query.code;
       /* If redirected from Google API */
@@ -126,7 +142,8 @@ app.get('/login', (req, res) => {
             access_type: 'online',
             scope: scopes
         });
-        res.redirect(url);
+        //res.redirect(url); TMP Fix for swagger
+        res.json({redirect_url: url});
       }
 });
 

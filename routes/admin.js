@@ -29,6 +29,24 @@ module.exports = (router, db, mongojs, jwt, config) => {
         });
     });
     
+    /**
+    * @swagger
+    * /admin/stores:
+    *   get:
+    *     tags:
+    *       - Admin
+    *     name: stores
+    *     summary: Get all stores in system
+    *     security:
+    *       - bearerAuth: []
+    *     consumes:
+    *       - application/json
+    *     responses:
+    *       200:
+    *         description: List of all stores in system
+    *       500:
+    *         description: Something is wrong with service please contact system administrator
+    */
     router.get('/stores', (req, res) => {
         var offset = Number(req.query.offset) || 0;
         var limit = Number(req.query.limit) || 3;

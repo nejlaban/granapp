@@ -3,6 +3,7 @@ module.exports = {
     CLIENT_ID: '',
     CLIENT_SECRET: '',
     REDIRECT_URL: '',
-    JWT_SECRET: ''
+    JWT_SECRET: '',
+    SWAGGER_HOST: 'localhost:3000'
 }
 
