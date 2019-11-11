@@ -50,7 +50,11 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./index.js','./routes/*.js'],
+  apis: [
+    './index.js',
+    './routes/*.js',
+    './models/*.js'
+  ],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
@@ -80,19 +84,19 @@ const oauth2Client = new google.auth.OAuth2(
 
 /**
   * @swagger
-  * /login:
+  * / :
   *   get:
   *     tags:
-  *       - Login
+  *       - login
   *     name: login
-  *     summary: Use Google Open ID to login to system. If account doesn't exist it will be created based on login info retrieved from Google
+  *     summary: Use Google Open ID to login to the system. If the account does not exist, it will be created based on login info retrieved from Google.
   *     consumes:
   *       - application/json
   *     responses:
   *       200:
-  *         description: Successfull Login
+  *         description: Successful login
   *       500:
-  *         description: Something is wrong with service please contact system administrator
+  *         description: Something is wrong with the service. Please contact the system administrator.
   */
 app.get('/login', (req, res) => {
       let code = req.query.code;

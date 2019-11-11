@@ -11,16 +11,18 @@ module.exports = (router) => {
     * /public/version:
     *   get:
     *     tags:
-    *       - System
+    *       - system
     *     name: version
-    *     summary: Check version of system
-    *     consumes:
+    *     summary: Check system version
+    *     produces:
     *       - application/json
     *     responses:
     *       200:
-    *         description: Return version of system running
+    *         description: Returns the version of the system running
+    *         schema:
+    *             $ref: "#/definitions/SystemInformation"
     *       500:
-    *         description: Something is wrong with service please contact system administrator
+    *         description: Something is wrong with the service. Please contact the system administrator.
     */
     router.get('/version', (req, res) => {
         res.json({
