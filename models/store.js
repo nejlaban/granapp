@@ -8,7 +8,7 @@
  *                  type: string
  *                  example: Konzum
  *              address:
- *                  type: Mala aleja 72, Ilidža
+ *                  type: 'Mala aleja 72, Ilidža'
  *              city:
  *                  type: Sarajevo
  *              lat:
