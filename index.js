@@ -32,7 +32,7 @@ const swaggerDefinition = {
         title: 'GranApp Swagger API Documentation',
         version: '1.0.0',
     },
-    host: config.SWAGGER_HOST,
+    host: process.env.SWAGGER_HOST || config.SWAGGER_HOST,
     basePath: '/',
     securityDefinitions: {
         bearerAuth: {
