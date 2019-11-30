@@ -13,11 +13,11 @@ if (!process.env.HEROKU) {
 }
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
-app.use(express.static('public'));
+app.use('/', express.static('./../frontend/build'));
 app.use(bodyParser.json());
 
 /* Global middleware */
