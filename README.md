@@ -28,17 +28,14 @@ If we want to start the entire development environment, we will run `npm run dev
 
 ### Deploying to Heroku
 
-During development, our React application will be started on a live server. However, if we want to deploy our project to Heroku, we need to **build** (compile) the application to static HTML, JS and CSS files, and **serve** it using the `express.static()` middleware. In order to do that, we are going to define a few more NPM scripts:
-- **start**: `cd api && npm install && node index.js` - Install and run the Express back-end
-- **heroku-postbuild**: `cd frontend && npm install && npm run build` - Install front-end dependencies and build the React application
+During development, our React application will be started on a live server. However, if we want to deploy our project to Heroku, we need to **build** (compile) the application to static HTML, JS and CSS files, and **serve** it using the `express.static()` middleware. In order to do that, we are going to define an additional NPM script:
+- **start**: `cd frontend && npm run build && cd ../api && node index.js` - Build the React application front-end, and run the Express back-end
 
 When the React application is compiled using `npm run build`, its files will be saved to `frontend/build`. In our Express code, we will point the static middleware to this route:
 ```js
 app.use('/', express.static('./../frontend/build'));
 ```
 Now, when the root route (`/`) of our project is accessed, the front-end application will be served in full.
-
-The reason we did not put all of the script code inside `start` (instead, using both `start` and `heroku-postbuild`) is the following: Heroku has a set time within which it has to bind to a port and start the server. Since the front-end consists of a lot of modules and may take a while to complete, it is possible for the application to time out. That is why we are utilizing Heroku's `heroku-postbuild` script, which executes *after* the `install` script. In other words, we are first installing and running the back-end Express server, allowing Heroku to bind the port in time, after which we install and build the front-end.
 
 ## Notes
 You can see the required back-end configuration constants in `api/config.sample.js`.
