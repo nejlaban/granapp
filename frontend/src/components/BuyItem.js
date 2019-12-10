@@ -14,6 +14,29 @@ class BuyItem extends Component {
         };
     }
 
+    /* componentDidMount() example */
+    componentDidMount = () => {
+        console.log('The shop is open.');
+    }
+
+    /* componentShouldUpdate() example */
+    shouldComponentUpdate = (nextProps, nextState) => {
+        if (nextState.inCart == 20) {
+            return false;
+        }
+        return true;
+    }
+
+    /* componentDidUpdate() example */
+    componentDidUpdate = (prevProps, prevState) => {
+        console.log(`Items before purchase: ${prevState.numOfItems}\nItems after purchase: ${this.state.numOfItems}`);
+    }
+
+    /* componentWillUnmount() example */
+    componentWillUnmount = () => {
+        console.log('The shop is closing...');
+    }
+
     /* Listen to changes in the <input> element, and assign the new value to `inCart` */
     addToCart = (event) => {
         this.setState({
@@ -22,7 +45,8 @@ class BuyItem extends Component {
     }
 
     /* Change the amount of remaining items and output a success/error message */
-    buyItem = () => {
+    buyItem = (message) => {
+        console.log(message);
         if (this.state.numOfItems - this.state.inCart < 0) {
             this.setState({
                 message: 'You cannot buy that many items.'
@@ -43,7 +67,7 @@ class BuyItem extends Component {
                 <p>
                     Enter the amount of { this.props.product } you want to buy: &nbsp;
                     <input type='number' onChange={ this.addToCart }/>
-                    <button onClick={ this.buyItem }>Buy</button>
+                    <button onClick={ () => { this.buyItem('Purchase sucessfully made.') } }>Buy</button>
                 </p>
                 <p><b>{ this.state.message }</b></p>
             </div>
