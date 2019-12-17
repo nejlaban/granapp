@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Form, FormControl } from 'react-bootstrap';
 
 /* Class component */
 class BuyItem extends Component {
@@ -62,12 +63,16 @@ class BuyItem extends Component {
     /* Render the component */
     render() {
         return (
-            <div id='buy-item'>
+            <div id='buy-item' style={{ marginTop: '1rem' }}>
                 <p>Remaining amount of { this.props.product }: { this.state.numOfItems }</p>
                 <p>
-                    Enter the amount of { this.props.product } you want to buy: &nbsp;
-                    <input type='number' onChange={ this.addToCart }/>
-                    <button onClick={ () => { this.buyItem('Purchase sucessfully made.') } }>Buy</button>
+                    <Form inline className="justify-content-center">
+                        <Form.Group>
+                            <Form.Label>Enter the amount of { this.props.product } you want to buy: &nbsp;</Form.Label>
+                            <FormControl type="number" placeholder="Search for an item" className="mr-sm-2" onChange={ this.addToCart } />
+                            <Button  onClick={ () => { this.buyItem('Purchase sucessfully made.') } } variant="outline-success">Buy</Button>
+                        </Form.Group>
+                    </Form>
                 </p>
                 <p><b>{ this.state.message }</b></p>
             </div>

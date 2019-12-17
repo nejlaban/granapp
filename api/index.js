@@ -20,6 +20,15 @@ const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 app.use('/', express.static('./../frontend/build'));
 app.use(bodyParser.json());
 
+/** 
+ * CORS middleware 
+ * In case you are having issues with `Access-Control-Allow-Origin`, use:
+ *  npm install cors
+ * and include the CORS middleware in your code.
+*/
+const cors = require('cors');
+app.use(cors());
+
 /* Global middleware */
 app.use((req, res, next) => {
     console.log('Server time: ', Date.now());
@@ -68,7 +77,7 @@ require('./routes/admin.js')(admin_router, db, mongojs, jwt, config);
 app.use('/admin', admin_router);
 
 let public_router = express.Router();
-require('./routes/public.js')(public_router);
+require('./routes/public.js')(public_router, db, mongojs);
 app.use('/public', public_router);
 
 const { google } = require('googleapis');
