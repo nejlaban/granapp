@@ -10,6 +10,7 @@ import ErrorPage from './components/ErrorPage';
 import Home from './components/Home';
 import ListProducts from './components/ListProducts';
 import ShowSingleProduct from './components/ShowSingleProduct';
+import AddProduct from './components/AddProduct';
 
 const App = () => {
     return (
@@ -18,7 +19,7 @@ const App = () => {
             <Switch>
                 <Route exact path='/' component={Home} />
                 <Route path='/demo' component={ProductShop} />
-                <Route path='/products/add' />
+                <Route path='/products/add' component={AddProduct}/>
                 <Route path='/products/:id' component={ShowSingleProduct} />
                 <Route path='/products' component={ListProducts} />
                 {/* Last item in the Switch: will be matched if no other routes are matched before it. */}

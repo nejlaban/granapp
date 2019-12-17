@@ -19,8 +19,8 @@ const GranappNavbar = (props) => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} exact to='/'>Home</Nav.Link>
-                        <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} to='/products'>Products</Nav.Link>
-                        <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} to='/products/add'>Add New Product</Nav.Link>
+                        <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} exact to='/products'>Products</Nav.Link>
+                        <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} exact to='/products/add'>Add New Product</Nav.Link>
                         <Nav.Link activeStyle={{ color: '#ED5035' }} as={NavLink} to='/demo'>Demo</Nav.Link>
                     </Nav>
                     

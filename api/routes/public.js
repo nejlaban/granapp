@@ -52,4 +52,10 @@ module.exports = (router, db, mongojs) => {
             res.json(docs);
         });
     });
+
+    router.post('/items', (req, res) => {
+        db.items.insert(req.body, (error, docs) =>{
+            res.json(docs);
+        });
+    });
 }
