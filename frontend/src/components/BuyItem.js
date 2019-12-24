@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Form, FormControl } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
+import { buyProduct } from '../actions/demoActions';
+
 /* Class component */
 class BuyItem extends Component {
     /* Component constructor */
@@ -9,7 +12,6 @@ class BuyItem extends Component {
 
         /* Initial values of variables within the component */
         this.state = {
-            numOfItems: this.props.inStock,
             inCart: 0,
             message: ''
         };
@@ -48,13 +50,13 @@ class BuyItem extends Component {
     /* Change the amount of remaining items and output a success/error message */
     buyItem = (message) => {
         console.log(message);
-        if (this.state.numOfItems - this.state.inCart < 0) {
+        if (this.props.products[this.props.product] - this.state.inCart < 0) {
             this.setState({
                 message: 'You cannot buy that many items.'
             });
         } else {
+            this.props.buyProduct(this.props.product, this.state.inCart);
             this.setState({
-                numOfItems: this.state.numOfItems - this.state.inCart,
                 message: `You successfully bought ${this.state.inCart} items of ${this.props.product}.`
             });
         }
@@ -64,7 +66,7 @@ class BuyItem extends Component {
     render() {
         return (
             <div id='buy-item' style={{ marginTop: '1rem' }}>
-                <p>Remaining amount of { this.props.product }: { this.state.numOfItems }</p>
+                <p>Remaining amount of { this.props.product }: { this.props.products[this.props.product] }</p>
                 <p>
                     <Form inline className="justify-content-center">
                         <Form.Group>
@@ -80,4 +82,23 @@ class BuyItem extends Component {
     }
 }
 
-export default BuyItem;
+/* Extracting data from the state */
+const mapStateToProps = (state) => {
+    /* Return the data which the component needs */
+    return {
+        products: state.demo
+    }
+}
+
+/* Dispatch actions and functions that the component will use */
+const mapDispatchToProps = (dispatch) => {
+    return {
+        buyProduct: (name, amount) => { dispatch(buyProduct(name, amount)) }
+    }
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(BuyItem);
