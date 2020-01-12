@@ -2,9 +2,10 @@ import React from 'react'
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { NavLink , Link, withRouter} from 'react-router-dom';
-import { hasValidJwt } from '../utils/jwtValidator';
 
 import logo from './../img/logo.png'; 
+
+import { hasValidJwt } from '../utils/jwtValidator';
 import LogOutButton from './LogOutButton';
 
 const GranappNavbar = (props) => {

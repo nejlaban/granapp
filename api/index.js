@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('path');
 
 /* Configuration import */
 let config;
@@ -14,11 +15,10 @@ if (!process.env.HEROKU) {
 
 const app = express();
 const port = process.env.PORT || 3001;
-const CLIENT_URL = process.env.CLIENT_URL  || config.CLIENT_URL;
+const CLIENT_URL = process.env.CLIENT_URL || config.CLIENT_URL;
 
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
-app.use('/', express.static('./../frontend/build'));
 app.use(bodyParser.json());
 
 /** 
@@ -152,9 +152,18 @@ app.get('/login', (req, res) => {
             access_type: 'online',
             scope: scopes
         });
-        res.redirect(url); 
+        res.redirect(url);
         // res.json({ redirect_url: url }); // TMP Fix for Swagger
     }
 });
+
+app.use('/', express.static('./../frontend/build'));
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, './../frontend/build/index.html'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`)) 
