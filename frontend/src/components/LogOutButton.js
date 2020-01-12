@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap';
-import { isValidJwt } from '../utils/jwtValidator';
 
 class LogOutButton extends Component {
     constructor(props) {
@@ -16,7 +15,7 @@ class LogOutButton extends Component {
 
     render() {
         return (
-            isValidJwt() && <Button onClick={this.logOut} style={{ marginLeft: 10 }} variant='danger'>Log out</Button>
+            <Button onClick={this.logOut} style={{ marginLeft: 10 }} variant='danger'>Log out</Button>
         )
     }
 }

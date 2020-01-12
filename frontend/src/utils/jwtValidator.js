@@ -1,7 +1,7 @@
 let jwt_decode = require('jwt-decode');
 
 /* See if the user has a valid JWT */
-export const isValidJwt = () => {
+export const hasValidJwt = () => {
     let token = localStorage.getItem('jwtToken');
     if (!token) { // no JWT token
         return false;

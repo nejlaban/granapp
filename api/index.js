@@ -14,6 +14,7 @@ if (!process.env.HEROKU) {
 
 const app = express();
 const port = process.env.PORT || 3001;
+const CLIENT_URL = process.env.CLIENT_URL  || config.CLIENT_URL;
 
 const db = mongojs(process.env.MONGODB_URL || config.MONGODB_URL);
 
@@ -136,7 +137,7 @@ app.get('/login', (req, res) => {
                         type: doc.type
                     }, process.env.JWT_SECRET || config.JWT_SECRET);
 
-                    res.redirect(`http://localhost:3000/auth#jwt=${jwtToken}`);
+                    res.redirect(`${CLIENT_URL}/auth#jwt=${jwtToken}`);
                 });
             });
         });

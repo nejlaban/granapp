@@ -12,12 +12,12 @@ import ShowSingleProduct from './components/ShowSingleProduct';
 import AddProduct from './components/AddProduct';
 import Auth from './components/Auth';
 
-import { isValidJwt } from './utils/jwtValidator';
+import { hasValidJwt } from './utils/jwtValidator';
 
 /* Private routes - if the user is authenticated, render component; otherwise redirect to home page */
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
-        isValidJwt() === true ? <Component {...props} /> : <Redirect to='/' />
+        hasValidJwt() === true ? <Component {...props} /> : <Redirect to='/' />
     )} />
   )
 
