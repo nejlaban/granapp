@@ -7,9 +7,26 @@ import * as serviceWorker from './serviceWorker';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* React-Redux store */
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+
+/* Creating a Redux store */
+import { createStore, applyMiddleware, compose } from 'redux';
+import granApp from './reducers/rootReducer';
+const store = createStore(
+    granApp, // root reducer
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // Redux DevTools extension
+    )
+);
+
 ReactDOM.render(
     <BrowserRouter>
-        <App />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </BrowserRouter>, 
 document.getElementById('root'));
 

@@ -7,6 +7,10 @@ import { NavLink } from 'react-router-dom';
 
 import config from './../config';
 
+/* Actions */
+import { connect } from 'react-redux';
+import { getAllProducts } from '../actions/productActions';
+
 class ListProducts extends Component {
     constructor(props) {
         super(props);
@@ -19,21 +23,17 @@ class ListProducts extends Component {
 
     /* Use the lifecycle method to fetch relevant data */
     componentDidMount = () => {
-        Axios.get(`${config.BASE_URL}/public/items`).then(response => {
-            /* Use response.data to access the actual data */
+        this.props.getAllProducts();
+    }
+
+    /* Set props from the Redux store */
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.products !== this.props.products) {
             this.setState({
-                products: response.data
-            });
-        }).catch(error => {
-            /* Use error to get the error message, or error.response(.data) to get all data returned with the error. */
-            console.log(error.response);
-        }).finally(() => {
-            /* finally() executes at the end of the request, regardless if it succeeded or not */
-            console.log(`${this.state.products.length} items have been retrieved.`);
-            this.setState({
+                products: this.props.products,
                 isLoading: false
             });
-        });
+        }
     }
 
     render() {
@@ -85,4 +85,21 @@ class ListProducts extends Component {
     }
 }
 
-export default ListProducts;
+/* Extracting data from the state */
+const mapStateToProps = (state) => {
+    /* Return the data which the component needs */
+    return {
+        products: state.products
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAllProducts: () => { dispatch(getAllProducts()) }
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ListProducts);

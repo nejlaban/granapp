@@ -25,7 +25,7 @@ class AddProduct extends Component {
         event.preventDefault();
         Axios.post(`${config.BASE_URL}/public/items`, 
             { name: this.state.name, description: this.state.description, producer: this.state.producer }, 
-            { headers: { Authoruzation: 'myJwtToken' } }).then(response => {
+            { headers: { Authorization: localStorage.getItem('jwtToken') } }).then(response => {
                 console.log('Product successfully added.');
                 alert('Product successfully added.');
                 this.props.history.push('/products');

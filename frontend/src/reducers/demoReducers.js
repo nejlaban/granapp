@@ -1,23 +1,22 @@
-import { BUY_PRODUCT, CLEAR_DATA } from '../actions/demoActions';
+import { BUY_ITEM } from '../actions/demoActions';
 
 const initialState = {
-    bread: 20,
     milk: 20,
+    bread: 20,
     chocolate: 20
-}
+};
 
-const demoReducers = (state = initialState, action) => {
+const buyItem = (state = initialState, action) => {
     switch (action.type) {
-        case BUY_PRODUCT:
+        case BUY_ITEM:
             return {
                 ...state,
-                [action.name]: state[action.name] - action.amount 
-            }
-        case CLEAR_DATA:
-            return state;
+                [action.name]: state[action.name] - action.amount
+            };
+        /* Default state, if no action was matched */
         default:
             return state;
     }
 }
 
-export default demoReducers;
+export default buyItem;

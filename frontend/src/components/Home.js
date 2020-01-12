@@ -3,6 +3,9 @@ import React from 'react'
 import { Jumbotron, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
+import GoogleSignInButton from './GoogleSignInButton';
+import { isValidJwt } from '../utils/jwtValidator';
+
 const Home = () => {
     return (
         <div>
@@ -14,6 +17,13 @@ const Home = () => {
             <p>
                 <Button variant="primary" as={NavLink} to='/products'>View products on display</Button>
             </p>
+            {
+                isValidJwt() ? (
+                    <p>You are logged in. </p>
+                ) : (
+                    <GoogleSignInButton />
+                )
+            }
             </Jumbotron>
         </div>
     )

@@ -2,7 +2,9 @@ import React from 'react'
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { NavLink , Link, withRouter} from 'react-router-dom';
+
 import logo from './../img/logo.png'; 
+import LogOutButton from './LogOutButton';
 
 const GranappNavbar = (props) => {
         return (
@@ -27,6 +29,7 @@ const GranappNavbar = (props) => {
                     <Form inline className="justify-content-center">
                         <FormControl type="text" placeholder="Search for an item" className="mr-sm-2" />
                         <Button variant="outline-success">Search</Button>
+                        <LogOutButton />
                     </Form>
                 </Navbar.Collapse>
             </Navbar>

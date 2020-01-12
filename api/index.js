@@ -135,8 +135,8 @@ app.get('/login', (req, res) => {
                         id: doc._id,
                         type: doc.type
                     }, process.env.JWT_SECRET || config.JWT_SECRET);
-                    /* Output the JWT */
-                    res.json({ 'jwt': jwtToken });
+
+                    res.redirect(`http://localhost:3000/auth#jwt=${jwtToken}`);
                 });
             });
         });
@@ -151,8 +151,8 @@ app.get('/login', (req, res) => {
             access_type: 'online',
             scope: scopes
         });
-        //res.redirect(url); TMP Fix for swagger
-        res.json({ redirect_url: url });
+        res.redirect(url); 
+        // res.json({ redirect_url: url }); // TMP Fix for Swagger
     }
 });
 

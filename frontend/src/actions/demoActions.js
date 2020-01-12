@@ -1,18 +1,11 @@
-/* Action type */
-export const BUY_PRODUCT = 'BUY_PRODUCT';
-export const CLEAR_DATA = 'CLEAR_DATA';
+/* Action */
+export const BUY_ITEM = 'BUY_ITEM'
 
 /* Action creator */
 export const buyProduct = (name, amount) => {
     return {
-        type: BUY_PRODUCT,
+        type: BUY_ITEM,
         name: name,
         amount: amount
-    }
-}
-
-export const clearData = () => {
-    return {
-        type: CLEAR_DATA
     }
 }
