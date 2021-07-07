@@ -1,60 +1,24 @@
 import 'package:flutter/material.dart';
-import 'Profile.dart';
-import 'Login.dart';
-import 'home.dart';
-import 'Shops.dart';
-import 'Wishlist.dart';
+import 'screens/shops_screen.dart';
+import 'screens/shop_products_screen.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyBottomNavigationBar(),
-    );
-  }
-}
-
-class MyBottomNavigationBar extends StatefulWidget {
-  @override
-  _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
-}
-
-class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  int _currentIndex = 0;
-
-  final List<Widget> _children = [
-    Home(),
-    Shops(),
-    Wishlist(),
-  ];
-
-  void onTappedBar(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTappedBar,
-        currentIndex: _currentIndex,
-        items: [
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.home), title: new Text('Home')),
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.shopping_bag_outlined),
-              title: new Text('Shops')),
-          BottomNavigationBarItem(
-              icon: new Icon(Icons.list), title: new Text('Wishlist')),
-        ],
+      title: 'GranApp',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        accentColor: Colors.amber,
       ),
+      // home: ShopsScreen(),
+      // initialRoute: '/',
+      routes: {
+        '/': (ctx) => ShopsScreen(),
+        ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
+      },
     );
   }
 }

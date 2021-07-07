@@ -28,19 +28,23 @@ const DUMMY_PRODUCTS = const [
         's1',
         's2',
       ],
-      title: 'Mlijeko'),
+      title: 'Mlijeko',
+      price: '1.5 KM'),
   Product(
       id: 'p2',
       categories: [
         's1',
-        's2',
       ],
-      title: 'Šećer'),
+      title: 'Šećer',
+      price: '1.8 KM'),
   Product(
-      id: 'p3',
-      categories: [
-        's1',
-        's2',
-      ],
-      title: 'Ulje'),
+    id: 'p3',
+    categories: [
+      's1',
+      's2',
+      's3',
+    ],
+    title: 'Ulje',
+    price: '2.3 KM',
+  )
 ];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/shop_products_screen.dart';
 
 class ShopItem extends StatelessWidget {
   final String id;
@@ -7,20 +8,21 @@ class ShopItem extends StatelessWidget {
 
   ShopItem(this.id, this.title, this.color);
 
-  void selectCategory(BuildContext ctx) {
-    Navigator.of(ctx).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return Text('abcccccc');
-        },
-      ),
+  void selectShop(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      //'/category-meals',
+      ShopProductsScreen.routeName,
+      arguments: {
+        'id': id,
+        'title': title,
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectCategory(context),
+      onTap: () => selectShop(context),
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
