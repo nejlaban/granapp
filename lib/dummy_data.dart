@@ -29,22 +29,26 @@ const DUMMY_PRODUCTS = const [
         's2',
       ],
       title: 'Mlijeko',
-      price: '1.5 KM'),
+      price: '1.5 KM',
+      imageUrl:
+          'https://sagro.ba/804-large_default/nase-mlijeko-28mm-121-pkt.jpg'),
   Product(
       id: 'p2',
       categories: [
         's1',
       ],
       title: 'Šećer',
-      price: '1.8 KM'),
+      price: '1.8 KM',
+      imageUrl:
+          'https://sagro.ba/934-large_default/secer-kocka-11-agragold-121.jpg'),
   Product(
-    id: 'p3',
-    categories: [
-      's1',
-      's2',
-      's3',
-    ],
-    title: 'Ulje',
-    price: '2.3 KM',
-  )
+      id: 'p3',
+      categories: [
+        's1',
+        's2',
+        's3',
+      ],
+      title: 'Ulje',
+      price: '2.3 KM',
+      imageUrl: 'https://sagro.ba/4-large_default/ulje-bimal-fino-151-pet.jpg')
 ];

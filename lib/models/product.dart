@@ -5,11 +5,12 @@ class Product {
   final List<String> categories; // list of categoryIds
   final String title;
   final String price;
-  // final String imageUrl;
+  final String imageUrl;
 
   const Product(
       {@required this.id,
       @required this.categories,
       @required this.title,
-      @required this.price});
+      @required this.price,
+      @required this.imageUrl});
 }

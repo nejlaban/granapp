@@ -31,8 +31,10 @@ class ShopProductsScreen extends StatelessWidget {
         itemBuilder: (ctx, index) {
           // return Text(shopProducts[index].title);
           return ProductItem(
+              id: shopProducts[index].id,
               title: shopProducts[index].title,
-              price: shopProducts[index].price);
+              price: shopProducts[index].price,
+              imageUrl: shopProducts[index].imageUrl);
         },
         itemCount: shopProducts.length,
       ),

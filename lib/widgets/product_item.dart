@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import '../screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
+  final String id;
   final String title;
   final String price;
+  final String imageUrl;
 
-  ProductItem({@required this.title, @required this.price});
+  ProductItem(
+      {@required this.id,
+      @required this.title,
+      @required this.price,
+      @required this.imageUrl});
 
-  void selectProduct() {}
+  void selectProduct(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(ProductDetailsScreen.routeName, arguments: id);
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectProduct,
+      onTap: () => selectProduct(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -26,6 +36,12 @@ class ProductItem extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
+                  ),
+                  child: Image.network(
+                    imageUrl,
+                    height: 250,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
@@ -58,21 +74,16 @@ class ProductItem extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      SizedBox(
-                        width: 6,
-                      ),
-                      Text('$title'),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
                       Icon(
                         Icons.attach_money,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text('$price'),
+                      Text(
+                        '$price',
+                        style: TextStyle(fontSize: 22),
+                      ),
                     ],
                   ),
                 ],
