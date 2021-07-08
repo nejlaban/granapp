@@ -3,6 +3,8 @@ import 'package:ponedjeljak/screens/product_detail_screen.dart';
 import 'screens/shops_screen.dart';
 import 'screens/shop_products_screen.dart';
 
+import 'screens/tabs_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       // home: ShopsScreen(),
       // initialRoute: '/',
       routes: {
-        '/': (ctx) => ShopsScreen(),
+        '/': (ctx) => TabsScreen(),
         ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
         ProductDetailsScreen.routeName: (ctx) => ProductDetailsScreen(),
       },
