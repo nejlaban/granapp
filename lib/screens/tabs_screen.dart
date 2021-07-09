@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'shops_screen.dart';
 import 'wishlist_screen.dart';
 
+import '../models/product.dart';
+
 class TabsScreen extends StatefulWidget {
+  final List<Product> wishlistProducts;
+
+  TabsScreen(this.wishlistProducts);
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -14,12 +20,20 @@ class _TabsScreenState extends State<TabsScreen> {
     FavoritesScreen(),
   ]; */
 
-  final List<Map<String, Object>> _pages = [
-    {'page': ShopsScreen(), 'title': 'Shops'},
-    {'page': WishlistScreen(), 'title': 'Your wishlist items'},
-  ];
+  List<Map<String, Object>> _pages;
 
   int _selectedPageIndex = 0;
+
+  @override
+  initState() {
+    _pages = [
+      {'page': ShopsScreen(), 'title': 'Shops'},
+      {
+        'page': WishlistScreen(widget.wishlistProducts),
+        'title': 'Your wishlist items'
+      },
+    ];
+  }
 
   void _selectPage(int index) {
     setState(() {
@@ -46,9 +60,9 @@ class _TabsScreenState extends State<TabsScreen> {
 
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.category), title: Text('Shops')),
+              icon: Icon(Icons.shopping_cart), title: Text('Shops')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.star), title: Text('Wishlist')),
+              icon: Icon(Icons.favorite), title: Text('Wishlist')),
         ],
       ),
     );

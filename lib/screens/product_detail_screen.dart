@@ -4,6 +4,11 @@ import 'package:ponedjeljak/dummy_data.dart';
 class ProductDetailsScreen extends StatelessWidget {
   static const routeName = '/product-detail';
 
+  final Function toggleWishlist;
+  final Function isOnWishlist;
+
+  ProductDetailsScreen(this.toggleWishlist, this.isOnWishlist);
+
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -77,6 +82,12 @@ class ProductDetailsScreen extends StatelessWidget {
             ), */
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          isOnWishlist(productId) ? Icons.add_circle : Icons.add_circle_outline,
+        ),
+        onPressed: () => toggleWishlist(productId),
       ),
     );
   }
