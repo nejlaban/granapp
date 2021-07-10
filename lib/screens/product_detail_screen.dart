@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ponedjeljak/dummy_data.dart';
+import 'package:GranApp/dummy_data.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   static const routeName = '/product-detail';
@@ -28,7 +28,7 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
-      height: 150,
+      height: 50,
       width: 300,
       child: child,
     );
@@ -55,10 +55,15 @@ class ProductDetailsScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            buildSectionTitle(context, 'Price'),
-
+            buildSectionTitle(context, 'Details about the product'),
             buildContainer(
-              Text(selectedProduct.price),
+              Text(
+                selectedProduct.title,
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+            buildContainer(
+              Text(selectedProduct.price, style: TextStyle(fontSize: 25)),
             ),
 
             // buildSectionTitle(context, 'Steps'),

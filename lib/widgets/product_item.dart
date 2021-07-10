@@ -74,9 +74,6 @@ class ProductItem extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.attach_money,
-                      ),
                       SizedBox(
                         width: 6,
                       ),

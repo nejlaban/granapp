@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ponedjeljak/dummy_data.dart';
-import 'package:ponedjeljak/screens/product_detail_screen.dart';
+import 'package:GranApp/dummy_data.dart';
+import 'package:GranApp/screens/product_detail_screen.dart';
 import 'screens/shops_screen.dart';
 import 'screens/shop_products_screen.dart';
 

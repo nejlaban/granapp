@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ponedjeljak/widgets/product_item.dart';
+import 'package:GranApp/widgets/product_item.dart';
 
 import '../models/product.dart';
 import '../dummy_data.dart';

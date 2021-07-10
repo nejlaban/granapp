@@ -1,6 +1,6 @@
 {
-    "name": "ponedjeljak",
-    "short_name": "ponedjeljak",
+    "name": "GranApp",
+    "short_name": "GranApp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
