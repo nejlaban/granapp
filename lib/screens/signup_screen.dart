@@ -1,5 +1,9 @@
+import 'package:GranApp/models/authentication.dart';
 import 'package:GranApp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+import '../models/authentication.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -13,7 +17,17 @@ class _SignupScreenState extends State<SignupScreen> {
 
   TextEditingController _passwordCOntroller = new TextEditingController();
 
-  void _submit() {}
+  Map<String, String> _authData = {'email': '', 'password': ''};
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+    await Provider.of<Authentication>(context, listen: false)
+        .signUp(_authData['email'], _authData['password']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +62,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
+                          // email
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: 'Email',
@@ -58,7 +73,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                 return 'invalid email';
                               return null;
                             },
-                            onSaved: (value) {},
+                            onSaved: (value) {
+                              _authData['email'] = value;
+                            },
                           ),
                           // password
                           TextFormField(
@@ -70,7 +87,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                 return 'invalid password';
                               return null;
                             },
-                            onSaved: (value) {},
+                            onSaved: (value) {
+                              _authData['password'] = value;
+                            },
                           ),
 
                           // confirm the password

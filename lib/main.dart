@@ -13,6 +13,10 @@ import 'Login.dart';
 
 import 'screens/login_screen.dart';
 
+import 'package:provider/provider.dart';
+
+import 'models/authentication.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -45,23 +49,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GranApp',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: Colors.amber,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Authentication(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'GranApp',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          accentColor: Colors.amber,
+        ),
+        // home: ShopsScreen(),
+        // initialRoute: '/',
+        routes: {
+          '/': (ctx) => TabsScreen(_wishlistProducts),
+          ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
+          ProductDetailsScreen.routeName: (ctx) =>
+              ProductDetailsScreen(_toggleWishlist, _isProductOnWishlist),
+          SignupScreen.routeName: (ctx) => SignupScreen(),
+          LoginScreen.routeName: (ctx) => LoginScreen(),
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+        },
       ),
-      // home: ShopsScreen(),
-      // initialRoute: '/',
-      routes: {
-        '/': (ctx) => TabsScreen(_wishlistProducts),
-        ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
-        ProductDetailsScreen.routeName: (ctx) =>
-            ProductDetailsScreen(_toggleWishlist, _isProductOnWishlist),
-        SignupScreen.routeName: (ctx) => SignupScreen(),
-        LoginScreen.routeName: (ctx) => LoginScreen(),
-        HomeScreen.routeName: (ctx) => HomeScreen(),
-      },
     );
   }
 }
