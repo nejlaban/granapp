@@ -1,3 +1,5 @@
+import 'package:GranApp/screens/home_screen.dart';
+import 'package:GranApp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'shops_screen.dart';
@@ -27,6 +29,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   initState() {
     _pages = [
+      {'page': LoginScreen(), 'title': 'Login'},
       {'page': ShopsScreen(), 'title': 'Shops'},
       {
         'page': WishlistScreen(widget.wishlistProducts),
@@ -59,6 +62,7 @@ class _TabsScreenState extends State<TabsScreen> {
         // type: BottomNavigationBarType.shifting,
 
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Homee')),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart), title: Text('Shops')),
           BottomNavigationBarItem(

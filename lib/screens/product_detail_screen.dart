@@ -92,7 +92,11 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Icon(
           isOnWishlist(productId) ? Icons.add_circle : Icons.add_circle_outline,
         ),
-        onPressed: () => toggleWishlist(productId),
+        //   onPressed: () => toggleWishlist(productId),
+        onPressed: () {
+          toggleWishlist(productId);
+         
+        },
       ),
     );
   }
