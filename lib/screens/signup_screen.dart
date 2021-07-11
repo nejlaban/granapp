@@ -1,16 +1,17 @@
+import 'package:GranApp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'signup_screen.dart';
-
-class LoginScreen extends StatefulWidget {
-  static const routeName = '/login';
+class SignupScreen extends StatefulWidget {
+  static const routeName = '/signup';
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignupScreenState createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+
+  TextEditingController _passwordCOntroller = new TextEditingController();
 
   void _submit() {}
   @override
@@ -20,12 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
         actions: <Widget>[
           FlatButton(
             child: Row(
-              children: <Widget>[Text('Sign up  '), Icon(Icons.person_add)],
+              children: <Widget>[Text('Login  '), Icon(Icons.person)],
             ),
             textColor: Colors.white,
             onPressed: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(SignupScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
             },
           )
         ],
@@ -33,14 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         children: <Widget>[
           Container(
-            color: Colors.amber,
+            color: Colors.lightGreen,
           ),
           Center(
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               child: Container(
-                height: 260,
+                height: 300,
                 width: 300,
                 padding: EdgeInsets.all(16),
                 child: Form(
@@ -60,11 +60,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             onSaved: (value) {},
                           ),
+                          // password
                           TextFormField(
                             decoration: InputDecoration(labelText: 'Password'),
                             obscureText: true,
+                            controller: _passwordCOntroller,
                             validator: (value) {
                               if (value.isEmpty || value.length <= 5)
+                                return 'invalid password';
+                              return null;
+                            },
+                            onSaved: (value) {},
+                          ),
+
+                          // confirm the password
+                          TextFormField(
+                            decoration: InputDecoration(
+                                labelText: 'Confirm the password'),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value.isEmpty ||
+                                  value != _passwordCOntroller.text)
                                 return 'invalid password';
                               return null;
                             },

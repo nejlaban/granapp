@@ -1,4 +1,5 @@
 import 'package:GranApp/screens/home_screen.dart';
+import 'package:GranApp/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:GranApp/dummy_data.dart';
 import 'package:GranApp/screens/product_detail_screen.dart';
@@ -57,6 +58,9 @@ class _MyAppState extends State<MyApp> {
         ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
         ProductDetailsScreen.routeName: (ctx) =>
             ProductDetailsScreen(_toggleWishlist, _isProductOnWishlist),
+        SignupScreen.routeName: (ctx) => SignupScreen(),
+        LoginScreen.routeName: (ctx) => LoginScreen(),
+        HomeScreen.routeName: (ctx) => HomeScreen(),
       },
     );
   }

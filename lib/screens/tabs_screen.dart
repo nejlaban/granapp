@@ -1,5 +1,6 @@
 import 'package:GranApp/screens/home_screen.dart';
 import 'package:GranApp/screens/login_screen.dart';
+import 'package:GranApp/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'shops_screen.dart';
@@ -30,6 +31,8 @@ class _TabsScreenState extends State<TabsScreen> {
   initState() {
     _pages = [
       {'page': LoginScreen(), 'title': 'Login'},
+      // {'page': SignupScreen(), 'title': 'Sign up'},
+
       {'page': ShopsScreen(), 'title': 'Shops'},
       {
         'page': WishlistScreen(widget.wishlistProducts),
