@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'signup_screen.dart';
+
+import '../models/authentication.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -12,7 +15,18 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  void _submit() {}
+  Map<String, String> _authData = {'email': '', 'password': ''};
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+
+    await Provider.of<Authentication>(context, listen: false)
+        .logIn(_authData['email'], _authData['password']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return 'invalid email';
                               return null;
                             },
-                            onSaved: (value) {},
+                            onSaved: (value) {
+                              _authData['email'] = value;
+                            },
                           ),
                           TextFormField(
                             decoration: InputDecoration(labelText: 'Password'),
@@ -68,7 +84,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 return 'invalid password';
                               return null;
                             },
-                            onSaved: (value) {},
+                            onSaved: (value) {
+                              _authData['password'] = value;
+                            },
                           ),
                           SizedBox(
                             height: 30,

@@ -15,4 +15,17 @@ class Authentication with ChangeNotifier {
     final responseData = json.decode(response.body);
     print(responseData);
   }
+
+  Future<void> logIn(String email, String password) async {
+    // final url =
+    //   'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyAVoocqBR2Vj_Nw4uHU73fJRrIVG9VbqGY';
+    Uri url = Uri.parse(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVoocqBR2Vj_Nw4uHU73fJRrIVG9VbqGY');
+
+    final response = await http.post(url,
+        body: json.encode(
+            {'email': email, 'password': password, 'returnSecureToken': true}));
+    final responseData = json.decode(response.body);
+    print(responseData);
+  }
 }
