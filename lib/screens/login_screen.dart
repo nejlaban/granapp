@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,14 +18,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Map<String, String> _authData = {'email': '', 'password': ''};
 
+  void _showErrorDialog(String m) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: Text('Error occured'),
+              content: Text(m),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Text('Okay'))
+              ],
+            ));
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-
-    await Provider.of<Authentication>(context, listen: false)
-        .logIn(_authData['email'], _authData['password']);
+    try {
+      await Provider.of<Authentication>(context, listen: false)
+          .logIn(_authData['email'], _authData['password']);
+    } catch (error) {
+      var errorMessage = 'Authentication failed. Try again!';
+      _showErrorDialog(errorMessage);
+    }
   }
 
   @override
