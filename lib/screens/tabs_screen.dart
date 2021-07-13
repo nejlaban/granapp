@@ -9,6 +9,8 @@ import 'wishlist_screen.dart';
 import '../models/product.dart';
 
 class TabsScreen extends StatefulWidget {
+  //static const routeName = '/tabs';
+
   final List<Product> wishlistProducts;
 
   TabsScreen(this.wishlistProducts);

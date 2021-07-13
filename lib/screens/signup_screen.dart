@@ -1,9 +1,11 @@
 import 'package:GranApp/models/authentication.dart';
+import 'package:GranApp/screens/home_screen.dart';
 import 'package:GranApp/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import '../models/authentication.dart';
+import 'home_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   static const routeName = '/signup';
@@ -19,13 +21,37 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Map<String, String> _authData = {'email': '', 'password': ''};
 
+  void _showErrorDialog(String m) {
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+              title: Text('Error occured'),
+              content: Text(m),
+              actions: <Widget>[
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Text('Okay'))
+              ],
+            ));
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
       return;
     }
     _formKey.currentState.save();
-    await Provider.of<Authentication>(context, listen: false)
-        .signUp(_authData['email'], _authData['password']);
+
+    try {
+      await Provider.of<Authentication>(context, listen: false)
+          .signUp(_authData['email'], _authData['password']);
+
+      Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+    } catch (error) {
+      var errorMessage = 'Authentication failed. Try again!';
+      _showErrorDialog(errorMessage);
+    }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'package:GranApp/screens/shops_screen.dart';
+import 'package:GranApp/screens/tabs_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'signup_screen.dart';
 
 import '../models/authentication.dart';
+
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -42,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await Provider.of<Authentication>(context, listen: false)
           .logIn(_authData['email'], _authData['password']);
+      // Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
     } catch (error) {
       var errorMessage = 'Authentication failed. Try again!';
       _showErrorDialog(errorMessage);

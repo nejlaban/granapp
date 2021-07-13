@@ -3,6 +3,8 @@ import '../dummy_data.dart';
 import '../widgets/shop_item.dart';
 
 class ShopsScreen extends StatelessWidget {
+  static const routeName = '/shops';
+
   @override
   Widget build(BuildContext context) {
     return GridView(

@@ -17,6 +17,8 @@ import 'package:provider/provider.dart';
 
 import 'models/authentication.dart';
 
+import 'screens/auth_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -61,16 +63,17 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.blue,
           accentColor: Colors.amber,
         ),
-        // home: ShopsScreen(),
+        home: AuthScreen(),
         // initialRoute: '/',
         routes: {
-          '/': (ctx) => TabsScreen(_wishlistProducts),
+          // '/': (ctx) => TabsScreen(_wishlistProducts),
           ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
           ProductDetailsScreen.routeName: (ctx) =>
               ProductDetailsScreen(_toggleWishlist, _isProductOnWishlist),
           SignupScreen.routeName: (ctx) => SignupScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
           HomeScreen.routeName: (ctx) => HomeScreen(),
+          // TabsScreen.routeName: (ctx) => TabsScreen(_wishlistProducts),
         },
       ),
     );

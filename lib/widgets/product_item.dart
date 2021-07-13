@@ -81,6 +81,13 @@ class ProductItem extends StatelessWidget {
                         '$price',
                         style: TextStyle(fontSize: 22),
                       ),
+                      GridTileBar(
+                        leading: IconButton(
+                          icon: Icon(Icons.add_circle),
+                          onPressed: () {},
+                          color: Theme.of(context).accentColor,
+                        ),
+                      )
                     ],
                   ),
                 ],
