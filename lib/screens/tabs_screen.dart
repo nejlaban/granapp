@@ -32,7 +32,7 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   initState() {
     _pages = [
-      {'page': LoginScreen(), 'title': 'Login'},
+      // {'page': LoginScreen(), 'title': 'Login'},
       // {'page': SignupScreen(), 'title': 'Sign up'},
 
       {'page': ShopsScreen(), 'title': 'Shops'},
@@ -67,7 +67,7 @@ class _TabsScreenState extends State<TabsScreen> {
         // type: BottomNavigationBarType.shifting,
 
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Homee')),
+          // BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Homee')),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart), title: Text('Shops')),
           BottomNavigationBarItem(

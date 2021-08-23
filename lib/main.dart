@@ -1,3 +1,4 @@
+import 'package:GranApp/productsFromApi.dart';
 import 'package:GranApp/screens/home_screen.dart';
 import 'package:GranApp/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'models/authentication.dart';
 
 import 'screens/auth_screen.dart';
+import 'productsFromApi.dart';
 
 void main() => runApp(MyApp());
 
@@ -58,21 +60,23 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'GranApp',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           accentColor: Colors.amber,
         ),
-        home: AuthScreen(),
+        home: ProductsFromAPI(),
         // initialRoute: '/',
         routes: {
-          // '/': (ctx) => TabsScreen(_wishlistProducts),
+          // '/': (ctx) => AuthScreen(),
+          // '/home': (ctx) => TabsScreen(_wishlistProducts),
           ShopProductsScreen.routeName: (ctx) => ShopProductsScreen(),
           ProductDetailsScreen.routeName: (ctx) =>
               ProductDetailsScreen(_toggleWishlist, _isProductOnWishlist),
           SignupScreen.routeName: (ctx) => SignupScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
-          HomeScreen.routeName: (ctx) => HomeScreen(),
+          // HomeScreen.routeName: (ctx) => HomeScreen(),
           // TabsScreen.routeName: (ctx) => TabsScreen(_wishlistProducts),
         },
       ),
