@@ -1,4 +1,63 @@
-import 'package:GranApp/productsFromApi.dart';
+import 'package:GranApp/domain/user.dart';
+import 'package:GranApp/providers/auth_provider.dart';
+import 'package:GranApp/providers/user_provider.dart';
+import 'package:GranApp/screens/dashboard.dart';
+import 'package:GranApp/screens/login.dart';
+import 'package:GranApp/screens/register.dart';
+import 'package:GranApp/utility/shared_preference.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    Future<User> getUserData() => UserPreferences().getUser();
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider())
+      ],
+      child: MaterialApp(
+        title: 'GranApp',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: FutureBuilder(
+            future: getUserData(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                  return CircularProgressIndicator();
+                default:
+                  if (snapshot.hasError)
+                    return Text('Error: ${snapshot.error}');
+                  else if (snapshot.data.token == null)
+                    return Login();
+                  else
+                    Provider.of<UserProvider>(context).setUser(snapshot.data);
+                  return DashBoard();
+              }
+            }),
+        routes: {
+          '/login/user': (context) => Login(),
+          '/register/user': (context) => Register(),
+          '/dashboard': (context) => DashBoard()
+        },
+      ),
+    );
+  }
+}
+
+
+
+/* import 'package:GranApp/productsFromApi.dart';
 import 'package:GranApp/screens/home_screen.dart';
 import 'package:GranApp/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,3 +142,4 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+ */
